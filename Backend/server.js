@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 
 //here, data is all expense records
 app.get('/expense', (req, res) => {
-  const sql = 'SELECT e.expense_id, c.category_name, e.amount, e.date, e.expense_description, IF(e.necessity = 1, "Yes", "No") AS necessity FROM expense e JOIN categories c ON e.category_id = c.category_id';
+  const sql = 'SELECT e.expense_id, c.category_name, e.amount, e.date, e.expense_description, e.necessity FROM expense e JOIN categories c ON e.category_id = c.category_id';
   db.query(sql, (err, data) => {
     if (err) {
       return res.json(err);
@@ -101,7 +101,7 @@ app.post('/create', (req, res) => {
         });
       }
 
-      categoryId = data[0].category_id; //extract the category_id from the query result
+      let categoryId = data[0].category_id; //extract the category_id from the query result
   
       //insert the expense using the extracted category_id and other details from the request using a prepared statement. If the insertion fails, the transaction is rolled back to prevent any partial data from being saved
       db.query("INSERT INTO expense (category_id, amount, date, expense_description, necessity) VALUES (?, ?, ?, ?, ?)",

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function CreateExpense() {
     const [categories, setCategories] = React.useState([]);
      React.useEffect(() => {
-        axios.get('http://localhost:8081/categories')
+        axios.get('http://34.63.225.128:8081/categories')
           .then(res => setCategories(res.data))
           .catch(err => console.log(err));
     }, []);
@@ -19,7 +19,7 @@ function CreateExpense() {
     
     function handleSubmit(event) {
         event.preventDefault(); //doesn't reload the page when the form is submitted, allowing us to handle the form submission with JavaScript instead of the default browser behavior.
-        axios.post('http://localhost:8081/create', {    
+        axios.post('http://34.63.225.128:8081/create', {    
             category_name: categoryName,
             amount: amount,
             date: date,

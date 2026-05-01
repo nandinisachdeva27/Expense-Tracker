@@ -9,17 +9,17 @@ function Expenses() {
   const [selectedCategory, setSelectedCategory] = React.useState('Select Report Value'); //selectedCategory holds the currently selected category for generating the report, which is used to filter the expenses displayed in the report based on the user's selection from the dropdown menu.
   const [categories, setCategories] = React.useState([]); //categories holds the list of categories fetched from the backend, which can be used to populate dropdowns or other UI elements that require category information.
   useEffect(() => {
-    axios.get('http://localhost:8081/expense')
+    axios.get('http://34.63.225.128:8081/expense')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
-    axios.get('http://localhost:8081/categories')
+    axios.get('http://34.63.225.128:8081/categories')
       .then(res => setCategories(res.data))
       .catch(err => console.log(err));
   }, []); //the [] dependency array ensures that the effect runs only once when the component mounts, preventing unnecessary re-fetching of data on every render.
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8081/delete/${id}`);
+      await axios.delete(`http://34.63.225.128:8081/delete/${id}`);
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -32,7 +32,7 @@ function Expenses() {
       return;
     }
 
-    axios.get(`http://localhost:8081/report?category_name=${value}`)
+    axios.get(`http://34.63.225.128:8081/report?category_name=${value}`)
       .then(res => setReport(res.data))
       .catch(err => console.log(err));
   };

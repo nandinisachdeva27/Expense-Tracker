@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 import Expenses from './Expenses';
 import CreateExpense from './CreateExpense';
 import UpdateExpense from './UpdateExpense';
@@ -10,6 +11,7 @@ function App() {
     <div className='App'>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<Navigate to='/expense' />} />
           <Route path='/expense' element={<Expenses />} />
           <Route path='/create' element={<CreateExpense />}></Route>
           <Route path='/update/:id' element={<UpdateExpense />}></Route>

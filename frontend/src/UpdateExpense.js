@@ -16,18 +16,18 @@ function UpdateExpense() {
     
     function handleSubmit(event) {
         event.preventDefault(); //doesn't reload the page when the form is submitted, allowing us to handle the form submission with JavaScript instead of the default browser behavior.
-        let necessityValue = null;
-        if (necessity === 'true') {
-          necessityValue = 1;
-        } else {
-          necessityValue = 0;
-        }
-        axios.put(`http://localhost:8081/update/${id}`, {    
+        // let necessityValue = null;
+        // if (necessity === 'true') {
+        //   necessityValue = 1;
+        // } else {
+        //   necessityValue = 0;
+        // }
+        axios.put(`http://34.63.225.128:8081/update/${id}`, {    
             category_name: categoryName,
             amount: amount,
             date: date,
             expense_description: expenseDescription,
-            necessity: necessityValue
+            necessity: necessity
         })
         .then(res => {console.log(res.data);
         navigate('/expense');}) //naviage to the /expenses page after the expense is successfully created
@@ -35,7 +35,7 @@ function UpdateExpense() {
     }
 
     React.useEffect(() => {
-    axios.get(`http://localhost:8081/expense/${id}`)
+    axios.get(`http://34.63.225.128:8081/expense/${id}`)
     .then(res => {
       const exp = res.data;
       setCategoryName(exp.category_name);
@@ -46,7 +46,7 @@ function UpdateExpense() {
     })
     .catch(err => console.log(err));
 
-    axios.get('http://localhost:8081/categories')
+    axios.get('http://34.63.225.128:8081/categories')
       .then(res => setCategories(res.data))
       .catch(err => console.log(err));
 }, [id]);
