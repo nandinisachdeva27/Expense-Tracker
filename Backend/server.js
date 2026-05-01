@@ -6,16 +6,18 @@ const app = express();
 app.use(express.json()); //middleware to parse incoming JSON requests, allowing the server to access the data sent in the request body as a JavaScript object through req.body
 app.use(cors()); //applies CORS middleware to allow requests from different origins
 
+require('dotenv').config();
+
 function sanitizeString(str) {
   return str.replace(/[^a-zA-Z0-9 .,!?@'-]/g, '');
 } //sanitizes user input by removing any characters that are not letters, numbers, spaces, or common punctuation marks. This helps ensure only safe characters are included in the input.
 
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '1Great!!@@##$$',
-  database: 'personal_expense_tracker'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 db.connect(err => {
